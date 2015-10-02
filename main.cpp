@@ -504,16 +504,94 @@ Fer un programa que llegeixi dues hores del dia en format 24 hores (HH:MM:SS) i
 calculi el temps en segons que ha passat des de la primera hora fins a la segona.
 Nota: Suposarem que la primera hora és més petita que la segona. 
  */
+#include <string>
 void ex8(){
-    string h1, h2;
+    std::string t1, t2;
+    int h1, m1, s1;
+    int h2, m2, s2;
+    
     cout << "H1 (HH:MM:SS) => ";
-    cin >> h1;
-    cout << "H2 (HH:MM:SS) =>";
-    cin >> h2;
+    //cin >> t1;
+    t1="13:55:05";
+    cout << "H2 (HH:MM:SS) => "<<endl;;
+    //cin >> t2;
+    t2="14:00:00";
     
-    int a=h1.length();
-    cout <<"Length => "<< a<<endl;
-    
+    if(t1.length()!=8 || t1[2]!=':' || t1[5]!=':'){
+        cout << "Format del temps H1 incorrecte"<<endl;
+    }else if(t2.length()!=8 || t2[2]!=':' || t2[5]!=':'){
+        cout << "Format del temps H2 incorrecte"<<endl;
+    }else{
+        
+        //
+        string h1_1(1,t1[0]);
+        string h1_2(1,t1[1]);
+        string a=h1_1+""+h1_2;
+        h1=stoi(a);
+        //
+        string h2_1(1,t1[3]);
+        string h2_2(1,t1[4]);
+        string b=h2_1+""+h2_2;
+        m1=stoi(b);
+        //
+        string h3_1(1,t1[6]);
+        string h3_2(1,t1[7]);
+        string c=h3_1+""+h3_2;
+        s1=stoi(c);
+        //
+        //
+        string h4_1(1,t2[0]);
+        string h4_2(1,t2[1]);
+        string d=h4_1+""+h4_2;
+        h2=stoi(d);
+        //
+        string h5_1(1,t2[3]);
+        string h5_2(1,t2[4]);
+        string e=h5_1+""+h5_2;
+        m2=stoi(e);
+        //
+        string h6_1(1,t2[6]);
+        string h6_2(1,t2[7]);
+        string f=h6_1+""+h6_2;
+        s2=stoi(f);
+        //
+
+        
+        bool correcte=false;
+        
+        if(h1<h2){
+            correcte=true;
+        }else if(h1==h2 && m1<m2){
+            correcte=true;
+        }else if(h1==h2 && m1==m2 && s1<s2){
+            correcte=true;
+        }else if(h1==h2 && m1==h2 && s1==s2){
+            //t1=t2
+            cout <<"El temps 1 és el mateix que el temps 2."<<endl;
+        }else{
+            //t2>t1
+            
+        }
+     
+        if(correcte==true){
+            
+            //t1 a seg
+            int t1s=((h1*3600)+(m1*60)+(s1));
+            cout <<h1<<endl;
+            cout <<m1<<endl;
+            cout <<s1<<endl;
+            cout << t1s<<endl;
+            //t2 a seg
+            int t2s=((h2*3600)+(m2*60)+(s2));
+            cout << t2s <<endl;
+            cout << "Diferència => "<< (t2s-t1s) << "segons" <<endl;
+            
+            
+            
+        }else{
+            cout <<"ERROR: El temps 1 ha de ser menor que el temps 2"<<endl;
+        }
+    }    
 }
 /**
  * Exercici 9
@@ -526,10 +604,197 @@ Feu també tres versions utilitzant les tres estructures iteratives.
 c) Torneu a modificar el programa anterior per calcular la suma, el producte i la mitja
 només dels nombres parells compresos entre dos límits que s’han de llegir per teclat.
 Utilitzeu també les tres estructures iteratives.
-d) Quina
+d) Quina de les 3 estructures iteratives creieu que és la més convenient en cada cas? Per
+què?
  */
 void ex9(){
+/**
+ * a) Fer un programa que calculi la suma, el producte i la mitja dels 100 primers nombres
+naturals (començant per 1). Feu tres versions utilitzant les tres estructures iteratives
+(while, do_while, for).
+ */  
+    //
+    // FOR
+    //
+    int suma=0; 
+    double producte=1;
+    float mitjana;
+    for(int i=0; i<100; i++){
+        suma+=(i+1);
+        producte=producte*(i+1);
+    }
+    mitjana=suma/100;
     
+    cout << "Suma" << suma <<endl;
+    cout << "Producte" << producte <<endl;
+    cout << "Mitjana" << mitjana <<endl;
+    //
+    // WHILE
+    //
+    suma=0; 
+    producte=1;
+    mitjana=0;
+    int i=0;
+    while(i<100){
+        suma+=(i+1);
+        producte=producte*(i+1);
+        i++;
+    }
+    mitjana=suma/100;
+    
+    cout << "Suma" << suma <<endl;
+    cout << "Producte" << producte <<endl;
+    cout << "Mitjana" << mitjana <<endl;
+    //
+    // DO WHILE
+    //
+    suma=0; 
+    producte=1;
+    mitjana=0;
+    i=0;
+    do{
+        suma+=(i+1);
+        producte=producte*(i+1);
+        i++;
+    }while(i<100);
+         
+    mitjana=suma/100;
+    
+    cout << "Suma" << suma <<endl;
+    cout << "Producte" << producte <<endl;
+    cout << "Mitjana" << mitjana <<endl;
+/*
+b) Modifiqueu el programa anterior perquè calculi la suma, el producte i la mitja dels
+primers nombres naturals des de 1 fins a un número qualsevol introduït per teclat.
+Feu també tres versions utilitzant les tres estructures iteratives.
+*/
+    
+    int limit=0;
+    cout<<"Limit => ";
+    cin >> limit;
+    
+    //
+    // FOR
+    //
+    suma=0; 
+    producte=1;
+    mitjana;
+    
+    for(int i=0; i<limit; i++){
+        suma+=(i+1);
+        producte=producte*(i+1);
+    }
+    mitjana=suma/limit;
+    
+    cout << "Suma" << suma <<endl;
+    cout << "Producte" << producte <<endl;
+    cout << "Mitjana" << mitjana <<endl;
+    //
+    // WHILE
+    //
+    suma=0; 
+    producte=1;
+    mitjana=0;
+    i=0;
+    while(i<limit){
+        suma+=(i+1);
+        producte=producte*(i+1);
+        i++;
+    }
+    mitjana=suma/limit;
+    
+    cout << "Suma" << suma <<endl;
+    cout << "Producte" << producte <<endl;
+    cout << "Mitjana" << mitjana <<endl;
+    //
+    // DO WHILE
+    //
+    suma=0; 
+    producte=1;
+    mitjana=0;
+    i=0;
+    do{
+        suma+=(i+1);
+        producte=producte*(i+1);
+        i++;
+    }while(i<limit);
+         
+    mitjana=suma/limit;
+    
+    cout << "Suma" << suma <<endl;
+    cout << "Producte" << producte <<endl;
+    cout << "Mitjana" << mitjana <<endl;
+    
+/*c) Torneu a modificar el programa anterior per calcular la suma, el producte i la mitja
+només dels nombres parells compresos entre dos límits que s’han de llegir per teclat.
+Utilitzeu també les tres estructures iteratives.
+*/
+    
+    int limit_i=0;
+    int limit_f=0;
+    cout<<"Limit inicial => ";
+    cin >> limit_i;
+     cout<<"Limit final => ";
+    cin >> limit_f;
+    
+    //
+    // FOR
+    //
+    suma=0; 
+    producte=1;
+    mitjana;
+    
+    for(int i=limit_i-1; i<limit_f; i++){
+        suma+=(i+1);
+        producte=producte*(i+1);
+    }
+    mitjana=suma/(limit_f-limit_i+1);
+    
+    cout << "Suma" << suma <<endl;
+    cout << "Producte" << producte <<endl;
+    cout << "Mitjana" << mitjana <<endl;
+    //
+    // WHILE
+    //
+    suma=0; 
+    producte=1;
+    mitjana=0;
+    i=limit_i-1;
+    while(i<limit_f){
+        suma+=(i+1);
+        producte=producte*(i+1);
+        i++;
+    }
+    mitjana=suma/(limit_f-limit_i+1);
+    
+    cout << "Suma" << suma <<endl;
+    cout << "Producte" << producte <<endl;
+    cout << "Mitjana" << mitjana <<endl;
+    //
+    // DO WHILE
+    //
+    suma=0; 
+    producte=1;
+    mitjana=0;
+    i=limit_i-1;
+    do{
+        suma+=(i+1);
+        producte=producte*(i+1);
+        i++;
+    }while(i<limit_f);
+         
+    mitjana=suma/(limit_f-limit_i+1);
+    
+    cout << "Suma" << suma <<endl;
+    cout << "Producte" << producte <<endl;
+    cout << "Mitjana" << mitjana <<endl;
+    
+/*d) Quina de les 3 estructures iteratives creieu que és la més convenient en cada cas? Per
+què?
+*/
+    //
+    // La millor forma és utilitzant el bucle for pq saps les voltes que faràs.
+    //
 }
 /**
  * Exercici 10
