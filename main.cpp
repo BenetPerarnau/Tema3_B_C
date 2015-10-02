@@ -6,6 +6,7 @@
  */
 
 #include <iostream>
+#include "Maquina.h"
 
 using namespace std;
 
@@ -74,6 +75,35 @@ int main(int argc, char** argv) {
                 ex10();
                 break;
             case 11:
+                ex11();
+                break;
+            case 12:
+                ex12();
+                break;
+            case 13:
+                ex13();
+                break;
+            case 14:
+                ex14();
+                break;
+            case 15:
+                ex15();
+                break;
+            case 16:
+                ex16();
+                break;
+            case 17:
+                ex17();
+                break;
+            case 18:
+                ex18();
+                break;
+            case 19:
+                ex19();
+                break;
+            case 20:
+                ex20();
+            case 21:
                 cout << "Bye!";
                 break;
             default:
@@ -95,25 +125,25 @@ int writeMenu(){
     
     int op=-1;
     
-    cout << "1-Exercici 1"<< endl;
+    cout << "1-Exercici 1\t";
     cout << "2-Exercici 2"<< endl;
-    cout << "3-Exercici 3"<< endl;
+    cout << "3-Exercici 3\t";
     cout << "4-Exercici 4"<< endl;
-    cout << "5-Exercici 5"<< endl;
+    cout << "5-Exercici 5\t";
     cout << "6-Exercici 6"<< endl;
-    cout << "7-Exercici 7"<< endl;
+    cout << "7-Exercici 7\t";
     cout << "8-Exercici 8"<< endl;
-    cout << "9-Exercici 9"<< endl;
+    cout << "9-Exercici 9\t";
     cout << "10-Exercici 10"<< endl;
-    cout << "11-Exercici 11"<< endl;
+    cout << "11-Exercici 11\t";
     cout << "12-Exercici 12"<< endl;
-    cout << "13-Exercici 13"<< endl;
+    cout << "13-Exercici 13\t";
     cout << "14-Exercici 14"<< endl;
-    cout << "15-Exercici 15"<< endl;
+    cout << "15-Exercici 15\t";
     cout << "16-Exercici 16"<< endl;
-    cout << "17-Exercici 17"<< endl;
+    cout << "17-Exercici 17\t";
     cout << "18-Exercici 18"<< endl;
-    cout << "19-Exercici 19"<< endl;
+    cout << "19-Exercici 19\t";
     cout << "20-Exercici 20"<< endl;
     cout << "21-Sortir"<<endl;;
     cout << "Selecciona el programa que vols executar => ";
@@ -442,23 +472,70 @@ quantitat de diners que introduïm a la màquina. Ha de calcular el canvi i escr
 quantitat mínima de monedes de cada tipus (2, 1, 0.50, 0.20, 0.10 i 0.05 euros) que ens
 ha de retornar.
  */
+#include "Maquina.h";
 void ex7(){
     
-}
-/**
- * 
- */
-void ex8(){
+    float valor=1.75;
+    int m2=2, m1=1, m50=2, m20=2, m10=2, m5=2;//6.70
+    
+    /*
+    cout << "Preu del producte => ";
+    cin >> valor;
+    cout << "Monedes de 2€ insertades => ";
+    cin >> m2;
+    cout << "Monedes de 1€ insertades => ";
+    cin >> m1;
+    cout << "Monedes de 0.50€ insertades => ";
+    cin >> m50;
+    cout << "Monedes de 0.20€ insertades => ";
+    cin >> m20;
+    cout << "Monedes de 0.10€ insertades => ";
+    cin >> m10;
+    cout << "Monedes de 0.05€ insertades => ";
+    cin >> m5;*/
+    
+    Maquina m(valor,m2,m1,m50,m20,m10,m5);
+    m.getCanvi();
     
 }
 /**
- * 
+ *Exercici 8
+Fer un programa que llegeixi dues hores del dia en format 24 hores (HH:MM:SS) i
+calculi el temps en segons que ha passat des de la primera hora fins a la segona.
+Nota: Suposarem que la primera hora és més petita que la segona. 
+ */
+void ex8(){
+    string h1, h2;
+    cout << "H1 (HH:MM:SS) => ";
+    cin >> h1;
+    cout << "H2 (HH:MM:SS) =>";
+    cin >> h2;
+    
+    int a=h1.length();
+    cout <<"Length => "<< a<<endl;
+    
+}
+/**
+ * Exercici 9
+a) Fer un programa que calculi la suma, el producte i la mitja dels 100 primers nombres
+naturals (començant per 1). Feu tres versions utilitzant les tres estructures iteratives
+(while, do_while, for).
+b) Modifiqueu el programa anterior perquè calculi la suma, el producte i la mitja dels
+primers nombres naturals des de 1 fins a un número qualsevol introduït per teclat.
+Feu també tres versions utilitzant les tres estructures iteratives.
+c) Torneu a modificar el programa anterior per calcular la suma, el producte i la mitja
+només dels nombres parells compresos entre dos límits que s’han de llegir per teclat.
+Utilitzeu també les tres estructures iteratives.
+d) Quina
  */
 void ex9(){
     
 }
 /**
- * 
+ * Exercici 10
+Fer un programa que llegeixi 10 nombres enters per teclat i calculi i escrigui la suma
+dels nombres parells, quants nombres parells hi ha i la mitja dels nombres senars. Feu
+tres versions, utilitzant les tres estructures iteratives.
  */
 void ex10(){
     
