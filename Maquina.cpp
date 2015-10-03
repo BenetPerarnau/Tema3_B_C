@@ -59,13 +59,18 @@ Maquina::~Maquina() {
     void Maquina::getCanvi(){
         
         int rM1=0, rM2=0, rM50=0, rM20=0, rM10=0, rM5=0;
-        double inputValue=0;
+        float inputValue=0;
+        
         std::cout << std::fixed;
         std::cout << std::setprecision(2);
         std::cout << inputValue;
         
         inputValue=getSumaValueMonedes();
-        cout << "Suma entrada => " << inputValue<<endl;
+        
+        
+        cout << "Suma entrada => " << inputValue <<endl;
+        cout << "Valor producte => " << valor <<endl; 
+        
         
         if(inputValue>=valor){
             
@@ -78,7 +83,7 @@ Maquina::~Maquina() {
             }           
                       
             if(inputValue>=1){
-                cout << inputValue <<endl;
+                //cout << inputValue <<endl;
                 rM1=(int)(inputValue/1);
                 inputValue-=rM1;
             }
@@ -89,7 +94,7 @@ Maquina::~Maquina() {
             }
             
             if(inputValue>=0.20){
-                cout << inputValue <<endl;
+                //cout << inputValue <<endl;
                 rM20=(int)(inputValue/0.20);
                 inputValue-=rM20*0.20;
             }
@@ -99,9 +104,9 @@ Maquina::~Maquina() {
                 inputValue-=rM10*0.10;
             }
             cout << "InputValue " << inputValue <<endl;
-            if(inputValue>=0.05){
+            if(inputValue>=(double)0.05){
                 rM5=(int)(inputValue/0.05);
-                cout << "d5: " << inputValue <<endl;
+                //cout << "d5: " << inputValue <<endl;
             }
             
         }else{
@@ -114,12 +119,12 @@ Maquina::~Maquina() {
             rM5=m5;
         }
         
-        cout << "Canvi:\nMonedes de 2€: " << rM2 
-                << "\nMonedes de 1€: " << rM1 
-                << "\nMonedes de 0.50€: " << rM50 
-                << "\nMonedes de 0.20€: " << rM20
-                << "\nMonedes de 0.10€: " << rM10 
-                << "\nMonedes de 0.05€: " << rM5 <<endl;
+        cout << "Canvi:\n\tMonedes de 2€: " << rM2 
+                << "\n\tMonedes de 1€: " << rM1 
+                << "\n\tMonedes de 0.50€: " << rM50 
+                << "\n\tMonedes de 0.20€: " << rM20
+                << "\n\tMonedes de 0.10€: " << rM10 
+                << "\n\tMonedes de 0.05€: " << rM5 <<endl;
         
         
     }

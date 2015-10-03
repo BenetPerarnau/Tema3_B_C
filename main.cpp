@@ -793,7 +793,7 @@ Utilitzeu també les tres estructures iteratives.
 què?
 */
     //
-    // La millor forma és utilitzant el bucle for pq saps les voltes que faràs.
+    // La millor forma és utilitzant el bucle for pq saps les voltes que faràs en tots els apartats.
     //
 }
 /**
@@ -804,63 +804,590 @@ tres versions, utilitzant les tres estructures iteratives.
  */
 void ex10(){
     
+    
+    int valors[10];
+    int sumaParells=0;
+    int contParells=0;
+    int contSenars=0;
+    float mitjanaSenars=0;
+    
+    
+    //
+    // FOR
+    //
+    for(int i=0; i<10; i++){
+        cout << "Valor " << (i+1) << " => ";
+        cin >> valors[i];
+        if(valors[i]%2==0){
+            //Parell
+            contParells++;
+            sumaParells+=valors[i];
+        }else{
+            //Senar
+            contSenars++;
+            mitjanaSenars+=valors[i];
+        }
+    }
+    mitjanaSenars=mitjanaSenars/contSenars;
+    
+    cout << "nº de valors parells entrats => " << contParells <<endl;
+    cout << "Suma de valors parells entrats => " << sumaParells <<endl;
+    cout << "Mitjana de valors senars entrats => " << mitjanaSenars <<endl;
+    //
+    // WHILE
+    //
+    valors[10];
+    sumaParells=0;
+    contParells=0;
+    contSenars=0;
+    mitjanaSenars=0;
+    int i=0;
+    while(i<10){
+        cout << "Valor " << (i+1) << " => ";
+        cin >> valors[i];
+        if(valors[i]%2==0){
+            //Parell
+            contParells++;
+            sumaParells+=valors[i];
+        }else{
+            //Senar
+            contSenars++;
+            mitjanaSenars+=valors[i];
+        }
+        i++;
+    }
+    mitjanaSenars=mitjanaSenars/contSenars;
+    
+    cout << "nº de valors parells entrats => " << contParells <<endl;
+    cout << "Suma de valors parells entrats => " << sumaParells <<endl;
+    cout << "Mitjana de valors senars entrats => " << mitjanaSenars <<endl;
+    //
+    // DO WHILE
+    //
+    valors[10];
+    sumaParells=0;
+    contParells=0;
+    contSenars=0;
+    mitjanaSenars=0;
+    i=0;
+    do{
+        cout << "Valor " << (i+1) << " => ";
+        cin >> valors[i];
+        if(valors[i]%2==0){
+            //Parell
+            contParells++;
+            sumaParells+=valors[i];
+        }else{
+            //Senar
+            contSenars++;
+            mitjanaSenars+=valors[i];
+        }
+        i++;
+    }while(i<10);
+        
+    mitjanaSenars=mitjanaSenars/contSenars;
+    
+    cout << "nº de valors parells entrats => " << contParells <<endl;
+    cout << "Suma de valors parells entrats => " << sumaParells <<endl;
+    cout << "Mitjana de valors senars entrats => " << mitjanaSenars <<endl;
 }
 /**
- * 
+ *Exercici 11
+Feu tres programes que, donada una seqüència de nombres enters entrada per teclat i
+que acaba amb el número 0:
+a) Sumi tots els nombres positius de la seqüència.
+b) Comprovi si tots els nombres de la seqüència són senars.
+c) Trobi el mínim i el màxim de tota la seqüència. 
  */
 void ex11(){
     
-}
-/**
- * 
- */
-void ex12(){
+    int max=0, min=0;
+    int sumPositius=0;
+    bool totSenar=true;
+    string cadena="";
+    
+    cout << "Entra una seqüència de nombre enters que acabi amb 0 => ";
+    cin >> cadena;
+    
+    
+    if(cadena[cadena.length()-1]!='0'){
+        cout << "ERROR: La seqüència entrada no finalitza amb 0." <<endl;
+    }else{
+        
+        
+        for(int i=0; i<cadena.length(); i++){
+            
+            string aux2(1,cadena[i]);
+            if(aux2=="-"){
+                i++;
+                string aux3(1,cadena[i]);
+                aux2=aux2+""+aux3;
+            }
+            
+            int aux=stoi(aux2);
+            
+            if(aux%2==0){ totSenar=false; }
+            
+            if(aux>0){sumPositius+=aux;}
+            
+            if(i==0){
+                max=aux;
+                min=aux;
+            }else{
+                if(aux<min){ min=aux; }
+                if(aux>max){ max=aux; }
+            }         
+        }
+        
+        cout << "Suma valors positius => " << sumPositius <<endl;
+        cout << "Tots els valors de la seqüència son senars ? ";
+        if(totSenar==true){
+            cout <<"Sí";
+        }else{
+            cout <<"No";
+        }
+        cout << endl;
+        cout << "Valor màxim => " << max <<endl;
+        cout << "Valor mínim => " << min <<endl;
+    }
+           
+    
     
 }
 /**
- * 
+ *Exercici 12
+a) Fer un programa que permeti fer la factura corresponent a la venda de vàries unitats
+d’un mateix producte. El preu del producte i el número d’unitats venudes s’han de
+llegir per teclat. Al preu resultant se li ha d’aplicar un IVA del 7%. Si l’import final
+després d’aplicar l’IVA és superior a 500 euros s’ha fer un descompte del 5%, i si és
+superior a 1000 euros, un descompte del 10%.
+b) Repetiu el programa anterior permetent que a la factura es puguin incloure més d’un
+producte. En aquest cas, el programa ha d’anar llegint el preu i el número d’unitats
+de tots els productes i parar quan s’introdueix un preu negatiu. La comprovació per
+decidir si s’ha d’aplicar algun descompte s’ha de fer sobre l’import total de tots els
+productes. 
+ */
+#define IVA 1.07
+#define TALL_DESC1 500
+#define DESC1 0.95
+#define TALL_DESC2 1000
+#define DESC2 0.90
+void ex12(){
+   /*
+a) Fer un programa que permeti fer la factura corresponent a la venda de vàries unitats
+d’un mateix producte. El preu del producte i el número d’unitats venudes s’han de
+llegir per teclat. Al preu resultant se li ha d’aplicar un IVA del 7%. Si l’import final
+després d’aplicar l’IVA és superior a 500 euros s’ha fer un descompte del 5%, i si és
+superior a 1000 euros, un descompte del 10%.
+    */
+   int unitats;
+   float preuUnitat, totalD=0, totalP, aux;
+   
+   
+   cout << "Preu producte => ";
+   cin >> preuUnitat;
+   cout << "Nº de unitats => ";
+   cin >> unitats;
+   
+   aux=preuUnitat*unitats*IVA;
+   
+   if(aux>TALL_DESC2){
+       totalP=aux*DESC2;
+       totalD=aux-totalP;
+   }else if(aux>TALL_DESC1){
+       totalP=aux*DESC1;
+       totalD=aux-totalP;
+   }else{
+       totalP=aux;
+   }
+   cout << "Subtotal: " << aux <<endl;
+   cout << "Valor descomptat: " << totalD <<endl; 
+   cout << "Total: " << totalP <<endl;
+   
+/*   
+b) Repetiu el programa anterior permetent que a la factura es puguin incloure més d’un
+producte. En aquest cas, el programa ha d’anar llegint el preu i el número d’unitats
+de tots els productes i parar quan s’introdueix un preu negatiu. La comprovació per
+decidir si s’ha d’aplicar algun descompte s’ha de fer sobre l’import total de tots els
+productes.    
+ */
+   
+   unitats=0, aux=0, preuUnitat=0, totalD=0, totalP=0;
+   
+   do{
+        cout << "Nº de unitats => ";
+        cin >> unitats;
+        cout << "Preu producte => ";
+        cin >> preuUnitat;
+        
+        if(preuUnitat>0){
+            
+            aux+=unitats*preuUnitat;
+            
+        }else{
+            
+            aux=aux*IVA;
+            
+            if(aux>TALL_DESC2){
+              
+                totalP=aux*DESC2;
+                totalD=aux-totalP;
+            
+            }else if(aux>TALL_DESC1){
+                
+                totalP=aux*DESC1;
+                totalD=aux-totalP;
+            
+            }else{
+                
+                totalP=aux;
+            }
+        }
+        
+   }while(preuUnitat>0);
+   
+     cout << "Subtotal: " << aux <<endl;
+     cout << "Valor descomptat: " << totalD <<endl; 
+     cout << "Total: " << totalP <<endl;
+}
+/**
+ *Exercici 13
+Fer un programa que llegeixi les notes de tots els alumnes d’una classe i digui quants
+alumnes estan suspesos (nota inferior a cinc), quants tenen un aprovat (nota entre 5 i 7),
+quants tenen un notable (nota entre 7 i 9) i quants tenen un excel·lent (nota entre 9 i 10).
+El programa ha de parar de llegir notes quan s’introdueixi un valor de nota incorrecte. 
  */
 void ex13(){
     
+    float nota=0;
+    int contS=0, contA=0, contN=0, contE=0;
+    
+    do{
+        
+        cout << "Nota => ";
+        cin >> nota;
+        
+        if(nota<=10 && nota>=0){
+            
+            
+            if(nota<5){
+                
+                contS++;
+                
+            }else if(nota<7){
+                
+                contA++;
+                
+            }else if(nota<9){
+                
+                contN++;
+                
+            }else{
+                
+                contE++;
+                
+            }
+            
+        }
+        
+    }while(nota<=10 && nota>=0);
+    
+    cout << "Suspesos " << contS <<endl;
+    cout << "Aprovats: " << contA <<endl;
+    cout << "Notable: " << contN <<endl;
+    cout << "Excel·lent: " << contE <<endl;
+    
 }
 /**
- * 
+ *Exercici 14
+Fer un programa per comprovar si un nombre n és primer o no. 
  */
 void ex14(){
     
+    
+    
+    int num;
+    bool primer=true;
+    
+    cout << "Valor => ";
+    cin >> num;
+    
+    
+    for(int i=num-1; i>1; i--){
+        
+        if(num%i==0){
+            //No és número primer
+            primer=false;
+            break;
+        }
+    }
+    
+    cout << "El número " << num << "";
+    if(primer){
+        cout << " Sí "; 
+    }else{
+        cout << " No ";
+    }
+    cout << "és primer." <<endl;
 }
 /**
- * 
+ *Exercici 15
+Donada la sèrie definida per:
+              a =0, a =1, a =3·a   +2·a
+ *             0     1     n    n-1    n-2
+a) Fer un programa que digui quin és el valor i la posició dins la sèrie del primer
+element més gran o igual que 1000.
+b) Modifiqueu el programa anterior per a que ens digui el valor i la posició del primer
+element més gran o igual que un número qualsevol introduït per teclat. 
  */
 void ex15(){
-    
+    //WTF?
 }
 /**
- * 
+ * Exercici 16
+Fer un programa que donat un enter n diferent d’1, escrigui tots els enters compresos
+entre 1 i n que siguin múltiples de 3 o de 7 però no dels 2 a la vegada. S’ha de
+considerar el cas en el qual en nombre n és negatiu, i ha de funcionar igualment. Per
+exemple, si s’introdueix el número -10, el programa hauria de mostrar el següent
+resultat: -3, -6. -7 i -9.
  */
 void ex16(){
     
-}
-/**
- * 
- */
-void ex17(){
+    int enter;
+    
+    cout << "Entra un enter diferent a 1 => ";
+    cin >> enter;
+    
+    if(enter>1){
+        for(int i=1; i<=enter; i++){
+
+            if(i%3==0 && i%7!=0){
+                cout << i << " ";
+            }else if(i%3!=0 && i%7==0){
+                cout << i << " ";
+            }
+            
+        }
+        cout <<endl;
+    }else{
+        for(int i=enter; i<0; i++){
+            
+            if(i%3==0 && i%7!=0){
+                cout << i << " ";
+            }else if(i%3!=0 && i%7==0){
+                cout << i << " ";
+            }
+        }
+        cout <<endl;
+    }
     
 }
 /**
- * 
+ *Exercici 17
+Fer un programa que rebi per teclat un dia, mes i any, i el dia de la setmana
+corresponent al primer de gener d’aquell any, i ens digui a quin dia de la setmana
+correspon la data introduïda. S’ha de tenir en compte si l’any és un any de traspàs o no.
+Un any és de traspàs si és múltiple de 4, però no de 100 ó si és múltiple de 100 i a la
+vegada de 400. 
+ */
+void ex17(){
+   /**
+     *  N = D + M + A + E [A/4] + S 
+     * 
+     * Siendo: 
+        · D = Día. 
+        · M: "Clave del mes", de acuerdo con el siguiente cuadro: 
+            Enero 0 
+            Abril 6 
+            Julio 6 
+            Octubre 0 
+            Febrero 3 
+            Mayo 1 
+            Agosto 2 
+            Noviembre 3 
+            Marzo 3 
+            Junio 4 
+            Septiembre 5 
+            Diciembre 5    
+        · A: Dos últimas cifras del número del año. En nuestro caso, A = 14. 
+        · E [A/4]: Representa el resultado entero de dividir las anteriores dos 
+          últimas cifras por 4. Es decir, Entero [14/4] = 3. 
+        . S: Un número asociado al siglo. Desde 1900 hasta 1999, vale 0. 
+           Desde 2000 hasta 2099, vale 6. 
+     */
+    
+    int D, mes, any;
+    char dia1_gener;
+    int E, A, M, S, N;
+    string diaS;
+    
+    cout << "Dia => ";
+    cin >> D;
+    cout << "Mes => ";
+    cin >> mes;
+    cout << "Any => ";
+    cin >> any;
+    cout << "Dia de la setmana del 1 de Gener d'aquest any (L,M,W,J,V,S,D) => ";
+    cin >> dia1_gener; 
+    
+    //Calcular M "clau mes"
+    switch(mes){
+        case 1:
+        case 10:
+            M=0;
+            break;
+        case 2:
+        case 3:
+        case 11:
+            M=3;
+            break;
+        case 4:
+        case 7:
+            M=6;
+            break;
+        case 9:
+        case 12:
+            M=5;
+            break;
+        case 5:
+            M=1;
+            break;
+        case 6:
+            M=4;
+            break;
+        case 8:
+            M=2;
+            break;
+    }
+    //Calcular A "Dos últimas cifras del número del año."
+    
+    string auxx=to_string(any);
+    string auxx2(1,auxx[auxx.length()-2]);
+    string auxx3(1,auxx[auxx.length()-1]);
+    auxx=auxx2+""+auxx3;
+    A=stoi(auxx);
+    
+    //E [A/4]: Representa el resultado entero de dividir las anteriores dos 
+    //      últimas cifras por 4. i coger el valor entero 
+    
+    E=(int)(A/4);
+    
+    //S: Un número asociado al siglo. Desde 1900 hasta 1999, vale 0. 
+    //       Desde 2000 hasta 2099, vale 6.
+    
+    if(any>=1900 && any<=1999){
+        S=0;
+    }else if(any>1999 && any<2100){
+        S=6;
+    }
+    
+    //N = (D + M + A + E [A/4] + S)%7 
+    
+    cout << "Dia => " << D <<endl;
+    cout << "M (clau mes) => " << M <<endl;
+    cout << "A => " << A <<endl;
+    cout << "E " << E <<endl;
+    cout << "S => " << S <<endl;
+    
+    N=(D+M+A+E+S)%7;
+    
+    switch(N){
+        case 1:
+            diaS="Dilluns";
+            break;
+        case 2:
+            diaS="Dimarts";
+            break;
+        case 3:
+            diaS="Dimecres";
+            break;
+        case 4:
+            diaS="Dijous";
+            break;
+        case 5:
+            diaS="Divendres";
+            break;
+        case 6:
+            diaS="Dissabte";
+            break;
+        case 0:
+            diaS="Diumenge";
+            break;
+        default:
+            break;
+    }
+    
+    cout << "Cau en : " <<diaS<<endl;
+    
+}
+/**
+ *Exercici 18
+Fer un programa que simuli una calculadora. El programa ha de presentar un menú
+indicant:
+Menú Calculadora:
+1) Sumar
+2) Restar
+3) Multiplicar
+4) Dividir
+5) Sortir
+Ha de permetre seleccionar una opció i després demanar dos nombres, aplicar l’operació
+seleccionada i tornar al menú. El programa s’aturarà només quan es seleccioni l’opció 5
+(Sortir). Si es selecciona una opció incorrecta s’ha de mostrar un missatge d’error. En
+l’opció de divisió s’ha de comprovar que el divisor sigui diferent de zero abans d’aplicar
+l’operació. Si és igual a zero s’ha de donar un missatge d’error. 
  */
 void ex18(){
     
 }
 /**
- * 
+ *Exercici 19
+Fer un programa que simuli el joc d’endevinar un número entre 0 i 100. El programa ha
+de seleccionar a l’atzar un número enter entre 0 i 100 i l’usuari té 5 oportunitats per
+endevinar quin és aquest número. A cada oportunitat, l’usuari introduirà un número
+entre 0 i 100 i el programa li dirà si és més gran o més petit que el número seleccionat.
+Si l’usuari endevina el número, el joc s’acaba i se l’informa que ha guanyat. Si passades
+5 oportunitats encara no s’ha endevinat el número, el joc també s’acaba i s’ha
+d’informar a l’usuari que ha perdut. En qualsevol dels dos casos, quan s’acaba el joc se
+li ha de preguntar a l’usuari si vol jugar un altre cop i si contesta afirmativament, es
+torna a començar. Per fer aquest programa podeu suposar que teniu una funció RAND(),
+que retorna un número aleatori entre 0 i 1. 
  */
 void ex19(){
     
 }
 /**
- * 
+ *Exercici 20
+En el joc de la ruleta hi ha diverses possibilitats d’apostes. En aquest exercici, de
+moment, només considerarem els següents tres tipus d’apostes:
+- Senzilla: s’aposta a un sol número i, en cas de guanyar es recupera la quantitat
+apostada i es guanya una quantitat addicional equivalent a 36 cops l’aposta inicial.
+- Doble: s’aposta a dos números i, en cas de guanyar es recupera la quantitat
+apostada i es guanya una quantitat addicional equivalent a 17 cops l’aposta inicial.
+- Quadrat: s’aposta a quatre números i, en cas de guanyar es recupera la quantitat
+apostada i es guanya una quantitat addicional equivalent a 8 cops l’aposta inicial.
+Diners de la Banca: la banca té una quantitat de diners per poder pagar els guanys dels
+jugadors. Per no arriscar-se a quedar-se sense diners, només es deixen fer apostes en què
+el guany potencial no superi el 10% del capital de la banca. Per guany potencial s’entén
+la quantitat addicional que guanyaria el jugador a part de l’aposta inicial.
+Es proposen els següents apartats:
+a) Fer un programa que llegeixi el capital inicial de la banca, el tipus d’aposta que vol
+fer el jugador i la quantitat de diners que vol apostar. En aquest punt s’haurà de
+comprovar que l’aposta sigui vàlida, és a dir que es compleixin les condicions de
+l’apartat “Diners de la banca”.
+b) Modificar el programa anterior afegint que si l’aposta és vàlida, es generi
+aleatòriament un número entre 0 i 36 (utilitzant la mateixa funció RAND() explicada
+a l’exercici anterior). Després s’ha de demanar al jugador que introdueixi els
+números als que vol apostar (tants com es puguin amb el tipus d’aposta que fa) i
+comprovar si algun coincideix amb el número generat. Si el número generat és el 0
+sempre guanya la banca i perd el jugador. Al final el programa ens ha d’informar si
+el jugador ha guanyat (i, en aquest cas, dir-nos el premi que ha obtingut) i ha
+d’escriure la quantitat de diners que li queden a la banca després de la partida. Si el
+jugador ha perdut, la banca guanya els diners apostats i si el jugador ha guanyat, la
+banca perd els diners del premi del jugador.
+c) Tornar a modificar el programa anterior perquè es puguin fer més d’una partida.
+Després d’una partida s’ha de preguntar si es vol tornar a jugar i, en cas de resposta
+afirmativa s’ha de repetir el procés de l’apartat anterior amb el capital de la banca
+actualitzat segons el resultat de l’última partida. 
  */
 void ex20(){
     
