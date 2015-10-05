@@ -31,7 +31,7 @@ public:
     virtual ~Maquina();
 private:
     int m1, m2, m50, m20, m10, m5;
-    float valor;
+    float valPro;
 };
 
 #endif	/* MAQUINA_H */

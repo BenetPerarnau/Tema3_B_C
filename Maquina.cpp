@@ -7,7 +7,8 @@
 
 #include "Maquina.h"
 #include <iostream>
-#include<iomanip>
+#include <iomanip>
+#include <math.h> 
 
 using namespace std;
 
@@ -31,7 +32,7 @@ Maquina::~Maquina() {
         setM5(m5);
     }
     //Seters
-    void Maquina::setValor(float value){ valor=value;}
+    void Maquina::setValor(float value){ valPro=value;}
     void Maquina::setM1(int v1){m1=v1;}
     void Maquina::setM2(int v2){m2=v2;}
     void Maquina::setM50(int v50){ m50=v50;}
@@ -49,7 +50,13 @@ Maquina::~Maquina() {
      * Calcular valor de las monedas entradas
      */
     float Maquina::getSumaValueMonedes(){
-        return ((m2*2)+(m1*1)+(m50*0.50)+(m20*0.20)+(m10*0.10)+(m5*0.05));
+        
+        float suma=((m2*2)+(m1*1)+(m50*0.50)+(m20*0.20)+(m10*0.10)+(m5*0.05));        
+        
+        //float suma50=floor(((m20*0.20)*100)+0.5)/100.0;
+        //float suma50B=m20*0.20;
+        
+        return suma;
     }
     /*
      *Calcular monedas a retornar
@@ -59,55 +66,61 @@ Maquina::~Maquina() {
     void Maquina::getCanvi(){
         
         int rM1=0, rM2=0, rM50=0, rM20=0, rM10=0, rM5=0;
-        float inputValue=0;
+        float sumValMon=0;
         
         std::cout << std::fixed;
         std::cout << std::setprecision(2);
-        std::cout << inputValue;
-        
-        inputValue=getSumaValueMonedes();
+        std::cout << sumValMon;
         
         
-        cout << "Suma entrada => " << inputValue <<endl;
-        cout << "Valor producte => " << valor <<endl; 
+        sumValMon=getSumaValueMonedes();
         
         
-        if(inputValue>=valor){
+        cout << "Suma entrada => " << sumValMon <<endl;
+        cout << "Valor producte => " << valPro <<endl; 
+        
+        
+        if(sumValMon>=valPro){
             
-            inputValue-=valor;
-            cout << "Valor a retornar: " << inputValue <<endl;
+            sumValMon-=valPro;
+            sumValMon=floor(sumValMon);
+            cout << "Valor a retornar: " << sumValMon <<endl;
             
-            if(inputValue>=2){
-                rM2=(int)(inputValue/2);
-                inputValue-=rM2*2;
+            if(sumValMon>=2){
+                rM2=(int)(sumValMon/2);
+                sumValMon-=rM2*2;
             }           
                       
-            if(inputValue>=1){
-                //cout << inputValue <<endl;
-                rM1=(int)(inputValue/1);
-                inputValue-=rM1;
+            if(sumValMon>=1){
+                rM1=(int)(sumValMon/1);
+                sumValMon-=rM1;
             }
             
-            if(inputValue>=0.50){
-                rM50=(int)(inputValue/0.50);
-                inputValue-=rM50*0.50;
+            if(sumValMon>=0.50){
+                rM50=(int)(sumValMon/0.50);
+                sumValMon-=rM50*0.50;
             }
             
-            if(inputValue>=0.20){
-                //cout << inputValue <<endl;
-                rM20=(int)(inputValue/0.20);
-                inputValue-=rM20*0.20;
+            if(sumValMon>=0.20){
+                rM20=(int)(sumValMon/0.20);
+                sumValMon-=rM20*0.20;
             }
             
-            if(inputValue>=0.10){
-                rM10=(int)(inputValue/0.10);
-                inputValue-=rM10*0.10;
+            if(sumValMon>=0.10){
+                rM10=(int)(sumValMon/0.10);
+                sumValMon-=rM10*0.10;
             }
-            cout << "InputValue " << inputValue <<endl;
-            if(inputValue>=(double)0.05){
-                rM5=(int)(inputValue/0.05);
-                //cout << "d5: " << inputValue <<endl;
+            cout << "InputValue " << sumValMon <<endl;
+            double aa=0.05;
+            cout << "aa " << aa <<endl;
+            
+            if(sumValMon>=aa){ 
+                cout << "Entra" <<endl;
+                rM5=(int)(sumValMon/0.05);
             }
+            
+            double aui=0;
+            //aui=floor(1.55+1.666);
             
         }else{
             cout << "Valor entrat insuficient" <<endl;
