@@ -1388,8 +1388,67 @@ li ha de preguntar a l’usuari si vol jugar un altre cop i si contesta afirmati
 torna a començar. Per fer aquest programa podeu suposar que teniu una funció RAND(),
 que retorna un número aleatori entre 0 i 1. 
  */
-void ex19() {
 
+
+
+int getValorUser(){
+    
+    int valor=0;
+    
+    cout << "Valor => ";
+    cin >> valor;
+    
+    return valor;
+    
+}
+
+int getValorRand(){
+    
+    // return rand() % (high - low + 1) + low;
+    
+    return int(rand()%(100+1));
+}
+
+void ex19() {
+    
+    char p='s';
+    int valUser=0;
+    int valRand=0;
+    
+    do{
+    
+    int oportunitats=5;
+    
+        do{
+            oportunitats--;
+            valRand=getValorRand();
+            valUser=getValorUser();
+            
+            if(valRand==valUser){
+                
+                cout << "Has endevinat en número. Has gastat " << oportunitats << " intents." <<endl;
+                
+            }else{
+                
+                if(valUser>valRand){
+                    cout << "El valor entrat és més gran." <<endl;
+                }else{
+                    cout << "El valor entrat és més petit." <<endl;
+                }
+            }
+            
+            if(oportunitats==0){
+                cout << "Limit d'oportunitats esgotades vols continuar (s,n) => ";
+                cin >> p;
+            }
+        
+        }while(oportunitats>0);
+    
+        
+        
+    }while(p=='s');
+    
+    cout << "Bye." <<endl;
 }
 
 /**
