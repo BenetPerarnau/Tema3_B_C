@@ -251,6 +251,36 @@ any. Recordeu que febrer té 29 dies en els anys de traspàs i que un any és de
 si és múltiple de 4, però no de 100 ó si és múltiple de 100 i a la vegada de 400.
 d) Fer un programa complet fusionant els tres programes anteriors en un de sol. 
  */
+
+int getNumDiesMes(int mes){
+    int num_dies;
+    
+            switch (mes) {
+            case 2://Febrer               
+                num_dies=28;
+                break;
+            case 5:       
+                num_dies=29;
+            case 1://Gener
+            case 4://Abril
+            case 6: //Juny
+            case 9://Setembre
+            case 10://Octubre
+            case 11://Novembre
+                num_dies=30;
+                break;
+            case 3:
+            case 7:
+            case 8:
+            case 12:
+                num_dies=31;
+            default:
+                break;
+        }
+            
+            return num_dies;
+}
+
 void ex5() {
 
     /**
@@ -330,10 +360,37 @@ void ex5() {
 
     //d) Fer un programa complet fusionant els tres programes anteriors en un de sol.     
 
+    int numDiesMes;
+    int mes_actual=1;
+    int dia_actual;
+    int any_actual;
+    
+    do{
+        cout << "Introdueix el numero de mes actual => ";
+        cin >> mes_actual;
+    }while(mes_actual<0 || mes_actual>12);
+    numDiesMes=getNumDiesMes(mes_actual);
+    do{
+        cout << "Introdueix el numero de dia => ";
+        cin >> dia_actual;
+    }while(dia_actual<0 || dia_actual>numDiesMes);
+    
+    cout << "Introdueix el any => ";
+    cin >> any;    
+    
+    if ((any % 4 == 0 && any % 100 != 0) || (any % 100 == 0 && any % 400 == 0)) {
+
+        cout << "Sí ";
+    } else {
+        cout << "No ";
+    }
+    cout << "és any de transpàs" << endl;
 
     //falta
 
 }
+
+
 
 /**
  * 
