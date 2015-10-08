@@ -1512,38 +1512,260 @@ void ex19() {
  *Exercici 20
 En el joc de la ruleta hi ha diverses possibilitats d’apostes. En aquest exercici, de
 moment, només considerarem els següents tres tipus d’apostes:
-- Senzilla: s’aposta a un sol número i, en cas de guanyar es recupera la quantitat
-apostada i es guanya una quantitat addicional equivalent a 36 cops l’aposta inicial.
-- Doble: s’aposta a dos números i, en cas de guanyar es recupera la quantitat
-apostada i es guanya una quantitat addicional equivalent a 17 cops l’aposta inicial.
-- Quadrat: s’aposta a quatre números i, en cas de guanyar es recupera la quantitat
-apostada i es guanya una quantitat addicional equivalent a 8 cops l’aposta inicial.
-Diners de la Banca: la banca té una quantitat de diners per poder pagar els guanys dels
-jugadors. Per no arriscar-se a quedar-se sense diners, només es deixen fer apostes en què
-el guany potencial no superi el 10% del capital de la banca. Per guany potencial s’entén
-la quantitat addicional que guanyaria el jugador a part de l’aposta inicial.
-Es proposen els següents apartats:
-a) Fer un programa que llegeixi el capital inicial de la banca, el tipus d’aposta que vol
-fer el jugador i la quantitat de diners que vol apostar. En aquest punt s’haurà de
-comprovar que l’aposta sigui vàlida, és a dir que es compleixin les condicions de
-l’apartat “Diners de la banca”.
-b) Modificar el programa anterior afegint que si l’aposta és vàlida, es generi
-aleatòriament un número entre 0 i 36 (utilitzant la mateixa funció RAND() explicada
-a l’exercici anterior). Després s’ha de demanar al jugador que introdueixi els
-números als que vol apostar (tants com es puguin amb el tipus d’aposta que fa) i
-comprovar si algun coincideix amb el número generat. Si el número generat és el 0
-sempre guanya la banca i perd el jugador. Al final el programa ens ha d’informar si
-el jugador ha guanyat (i, en aquest cas, dir-nos el premi que ha obtingut) i ha
-d’escriure la quantitat de diners que li queden a la banca després de la partida. Si el
-jugador ha perdut, la banca guanya els diners apostats i si el jugador ha guanyat, la
-banca perd els diners del premi del jugador.
-c) Tornar a modificar el programa anterior perquè es puguin fer més d’una partida.
-Després d’una partida s’ha de preguntar si es vol tornar a jugar i, en cas de resposta
-afirmativa s’ha de repetir el procés de l’apartat anterior amb el capital de la banca
-actualitzat segons el resultat de l’última partida. 
- */
-void ex20() {
+ 
+- Senzilla: 
+    s’aposta a un sol número i, en cas de guanyar es recupera la quantitat
+    apostada i es guanya una quantitat addicional equivalent a 36 cops l’aposta 
+    inicial.
+- Doble: 
+    s’aposta a dos números i, en cas de guanyar es recupera la quantitat
+    apostada i es guanya una quantitat addicional equivalent a 17 cops l’aposta 
+    inicial.
+- Quadrat: 
+    s’aposta a quatre números i, en cas de guanyar es recupera la quantitat
+    apostada i es guanya una quantitat addicional equivalent a 8 cops l’aposta 
+    inicial.
+Diners de la Banca: 
+    la banca té una quantitat de diners per poder pagar els guanys dels
+    jugadors. 
+    Per no arriscar-se a quedar-se sense diners, només es deixen fer apostes en 
+    què el guany potencial no superi el 10% del capital de la banca. 
+    Per guany potencial s’entén la quantitat addicional que guanyaria el jugador 
+    a part de l’aposta inicial.
 
+Es proposen els següents apartats:
+    a) Fer un programa que llegeixi el capital inicial de la banca, el tipus 
+    d’aposta que vol fer el jugador i la quantitat de diners que vol apostar.
+    En aquest punt s’haurà de comprovar que l’aposta sigui vàlida, és a dir que 
+    es compleixin les condicions de l’apartat “Diners de la banca”.
+    b) Modificar el programa anterior afegint que si l’aposta és vàlida, es generi
+    aleatòriament un número entre 0 i 36 (utilitzant la mateixa funció RAND() explicada
+    a l’exercici anterior). Després s’ha de demanar al jugador que introdueixi els
+    números als que vol apostar (tants com es puguin amb el tipus d’aposta que fa) i
+    comprovar si algun coincideix amb el número generat. Si el número generat és el 0
+    sempre guanya la banca i perd el jugador. Al final el programa ens ha d’informar si
+    el jugador ha guanyat (i, en aquest cas, dir-nos el premi que ha obtingut) i ha
+    d’escriure la quantitat de diners que li queden a la banca després de la partida. Si el
+    jugador ha perdut, la banca guanya els diners apostats i si el jugador ha guanyat, la
+    banca perd els diners del premi del jugador.
+    c) Tornar a modificar el programa anterior perquè es puguin fer més d’una partida.
+    Després d’una partida s’ha de preguntar si es vol tornar a jugar i, en cas de resposta
+    afirmativa s’ha de repetir el procés de l’apartat anterior amb el capital de la banca
+    actualitzat segons el resultat de l’última partida. 
+ */
+
+#define APOSTA_SENZILLA 0
+#define APOSTA_DOBLE 1
+#define APOSTA_QUADRAT 2
+#define NO_P_A_SUPERAR 10
+
+void ex20() {
+    float capital_banca;
+    float guany_potencial; //guany potencial no superi el 10% del capital de la banca. Per guany potencial s’entén la quantitat addicional que guanyaria el jugador a part de l’aposta inicial.
+    float q_adicional;
+    int tipus_aposta;
+    int num_maquina;
+    int num_usuari[4];
+    float diners_apostats;
+    float premi_jugador;
+    bool continuar=true;
+    
+
+    cout << "Introdueix el Capital Inicial de la Banca => ";
+    cin >> capital_banca;
+    while(capital_banca<=0){
+        cout <<"ERROR. El capital de la banca no pot ser inferior o = a 0. "<<endl;
+        cout << "Introdueix el Capital Inicial de la Banca => ";
+        cin >> capital_banca;
+    }
+    
+    do{
+        cout << "1)Senzilla\n2)Doble\n3)Quadrada)\nIntrodueix el tipus d'aposta => ";
+        cin >> tipus_aposta;
+        while(tipus_aposta>3 || tipus_aposta<1){
+            cout <<"ERROR. Tipus d'aposta no trobada. " <<endl;
+            cout << "1)Senzilla\n2)Doble\n3)Quadrada)\nIntrodueix el tipus d'aposta => ";
+            cin >> tipus_aposta;
+        }
+
+        cout << "Introdueix els € que vols apostar => ";
+        cin >> diners_apostats;
+        while(diners_apostats<=0){
+            cout <<"ERROR. L'aposta no pot ser negativa ni = a 0. "<<endl;
+            cout << "Introdueix els € que vols apostar => ";
+            cin >> diners_apostats;
+        }
+
+        switch(tipus_aposta){
+            case 1:
+    /**
+        Senzilla: 
+        s’aposta a un sol número i, en cas de guanyar es recupera la quantitat
+        apostada i es guanya una quantitat addicional equivalent a 36 cops l’aposta 
+        inicial.
+     */
+                q_adicional=36*diners_apostats;
+                guany_potencial=capital_banca*NO_P_A_SUPERAR/100;
+                if(q_adicional<=guany_potencial){
+                
+                    num_maquina=rand()%36; //entre 0 i 36
+                    
+                    cout << "Entra un valor del 0 al 36 => ";
+                    cin >> num_usuari[0];
+                    
+                    while(num_usuari[0]<0 || num_usuari[0]>36){
+                        cout << "ERROR. El valor introduit és incorrecte. " <<endl;
+                        cout << "Entra un valor del 0 al 36 => ";
+                        cin >> num_usuari[0];
+                    }
+                    
+                    if(num_maquina==0 || num_maquina!=num_usuari[0]){
+                        //Guanya la maquina
+                        
+                        capital_banca+=diners_apostats;
+                        cout << "HAS PERDUT!" <<endl;
+                        
+                    }else{
+                        //Gunaya el jugador
+                        
+                        premi_jugador=q_adicional+diners_apostats;
+                        capital_banca-=q_adicional;
+                        
+                        cout << "HAS GUANYAT!" <<endl;
+                        cout << "Premi: " << premi_jugador <<endl;
+                    }
+                    
+                    cout << "Capital Banca: " << capital_banca <<endl;
+                    
+                }else{
+                    cout << "En aquets moments la banca no pot donar resposta a l'aposta. " <<endl;
+                }
+                
+                break;
+            case 2:
+/*
+    Doble: 
+    s’aposta a dos números i, en cas de guanyar es recupera la quantitat
+    apostada i es guanya una quantitat addicional equivalent a 17 cops l’aposta 
+    inicial.
+ */
+                q_adicional=17*diners_apostats;
+                guany_potencial=capital_banca*NO_P_A_SUPERAR/100;
+               
+                if(q_adicional<=guany_potencial){
+                
+                    num_maquina=rand()%36; //entre 0 i 36
+                    
+                    for(int i=0; i<2; i++){
+                        
+                        cout << "Introdueix un valor del 0 al 36 nº" << (i+1) << " => ";
+                        cin >> num_usuari[i];
+                        
+                        if(num_usuari[i]<0 || num_usuari[i]>36){
+                            cout << "ERROR. El valor introduit és incorrecte. " <<endl;
+                            i--;
+                        }
+                    }
+                    
+                    
+                    if(num_maquina==0 || num_maquina!=num_usuari[0] || num_maquina!=num_usuari[1]){
+                        //Guanya la maquina
+                        
+                        capital_banca+=diners_apostats;
+                        cout << "HAS PERDUT!" <<endl;
+                        
+                    }else{
+                        //Gunaya el jugador
+                        
+                        premi_jugador=q_adicional+diners_apostats;
+                        capital_banca-=q_adicional;
+                        
+                        cout << "HAS GUANYAT!" <<endl;
+                        cout << "Premi: " << premi_jugador <<endl;
+                    }
+                    
+                    cout << "Capital Banca: " << capital_banca <<endl;
+                    
+                }else{
+                    cout << "En aquets moments la banca no pot donar resposta a l'aposta. " <<endl;
+                }
+                break;
+            case 3:
+/*
+    Quadrat: 
+    s’aposta a quatre números i, en cas de guanyar es recupera la quantitat
+    apostada i es guanya una quantitat addicional equivalent a 8 cops l’aposta 
+    inicial.
+ */
+                q_adicional=8*diners_apostats;
+                guany_potencial=capital_banca*NO_P_A_SUPERAR/100;
+                
+                if(q_adicional<=guany_potencial){
+                
+                    num_maquina=rand()%36; //entre 0 i 36
+                    
+                    for(int i=0; i<4; i++){
+                        
+                        cout << "Introdueix un valor del 0 al 36 nº" << (i+1) << " => ";
+                        cin >> num_usuari[i];
+                        
+                        if(num_usuari[i]<0 || num_usuari[i]>36){
+                            cout << "ERROR. El valor introduit és incorrecte. " <<endl;
+                            i--;
+                        }
+                    }
+                    
+                    
+                    if(num_maquina==0 || num_maquina!=num_usuari[0] || num_maquina!=num_usuari[1] || num_maquina!=num_usuari[2]){
+                        //Guanya la maquina
+                        
+                        capital_banca+=diners_apostats;
+                        cout << "HAS PERDUT!" <<endl;
+                        
+                    }else{
+                        //Gunaya el jugador
+                        
+                        premi_jugador=q_adicional+diners_apostats;
+                        capital_banca-=q_adicional;
+                        
+                        cout << "HAS GUANYAT!" <<endl;
+                        cout << "Premi: " << premi_jugador <<endl;
+                    }
+                    
+                    cout << "Capital Banca: " << capital_banca <<endl;
+                    
+                }else{
+                    cout << "En aquets moments la banca no pot donar resposta a l'aposta. " <<endl;
+                }
+                break;
+            default:
+                //no fa res
+                break;
+        }
+        
+        
+/*
+  c) Tornar a modificar el programa anterior perquè es puguin fer més d’una partida.
+    Després d’una partida s’ha de preguntar si es vol tornar a jugar i, en cas de resposta
+    afirmativa s’ha de repetir el procés de l’apartat anterior amb el capital de la banca
+    actualitzat segons el resultat de l’última partida. 
+ */        
+        char aux;
+        
+        cout << "Vols tornar a jugar (s,n)? ";
+        cin >> aux;
+        
+        while(aux!='s' && aux!='n'){
+            cout << "ERROR" <<endl;
+            cout << "Vols tornar a jugar (s,n)? ";
+            cin >> aux;
+        }
+        
+        if(aux=='n'){
+            continuar=false;
+        }
+        
+    }while(continuar);
 }
 
 int main(int argc, char** argv) {
